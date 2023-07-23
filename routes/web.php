@@ -1,6 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\WisataController;
 
 /*
@@ -18,4 +20,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('wisatas', WisataController::class);
+Auth::routes([
+    'register' => false
+]);
+
+Route::middleware('auth')->group(function(){
+    Route::resource('wisatas', WisataController::class);
+});

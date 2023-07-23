@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Wisata;
+use App\Models\Jeniswisata;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class WisataController extends Controller
 {
@@ -12,7 +16,13 @@ class WisataController extends Controller
      */
     public function index()
     {
-        //
+        $pageTitle = 'list Data';
+        $wisatas = Wisata::all();
+
+        return view('wisata.index', [
+            'pageTitle' => $pageTitle,
+            'wisatas' => $wisatas
+        ]);
     }
 
     /**
@@ -20,7 +30,9 @@ class WisataController extends Controller
      */
     public function create()
     {
-        //
+        $pageTitle = 'Tambah Data';
+        $jeniswisatas = Jeniswisata::all();
+        return view('wisata.create', compact('pageTitle', 'jeniswisatas'));
     }
 
     /**
@@ -28,7 +40,29 @@ class WisataController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $messages = [
+            'required' => ':Attribute harus diisi.',
+        ];
+
+        $validator = Validator::make($request->all(), [
+            'namawisata' => 'required',
+            'lokasi' => 'required',
+            'deskripsi' => 'required',
+            'htm' => 'required',
+        ], $messages);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $wisata = new Wisata;
+        $wisata->namawisata = $request->namawisata;
+        $wisata->lokasi = $request->lokasi;
+        $wisata->deskripsi = $request->deskripsi;
+        $wisata->htm = $request->htm;
+        $wisata->jeniswisata_id = $request->jeniswisata;
+        $wisata->save();
+        return redirect()->route('wisatas.index');
     }
 
     /**
@@ -44,7 +78,10 @@ class WisataController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $pageTitle = 'Edit Employee';
+        $jeniswisatas = Jeniswisata::all();
+        $wisata = Wisata::find($id);
+        return view('Wisata.edit', compact('pageTitle', 'jeniswisatas', 'wisata'));
     }
 
     /**
@@ -52,7 +89,29 @@ class WisataController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $messages = [
+            'required' => ':Attribute harus diisi.',
+        ];
+
+        $validator = Validator::make($request->all(), [
+            'namawisata' => 'required',
+            'lokasi' => 'required',
+            'deskripsi' => 'required',
+            'htm' => 'required',
+        ], $messages);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $wisata = Wisata::find($id);
+        $wisata->namawisata = $request->namawisata;
+        $wisata->lokasi = $request->lokasi;
+        $wisata->deskripsi = $request->deskripsi;
+        $wisata->htm = $request->htm;
+        $wisata->jeniswisata_id = $request->jeniswisata;
+        $wisata->save();
+        return redirect()->route('wisatas.index');
     }
 
     /**
@@ -60,6 +119,7 @@ class WisataController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Wisata::find($id)->delete();
+        return redirect()->route('wisatas.index');
     }
 }

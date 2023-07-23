@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Jeniswisata extends Model
 {
     use HasFactory;
-    public function wisatas() { 
+    public function wisatas() 
+    { 
         return $this->hasMany(Wisata::class); 
     }
 }

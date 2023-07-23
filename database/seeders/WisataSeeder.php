@@ -15,21 +15,21 @@ class WisataSeeder extends Seeder
     {
         DB::table('wisatas')->insert([
             [
-                'nama_wisata' => 'Pantai ABC',
+                'namawisata' => 'Pantai ABC',
                 'lokasi' => 'Surabaya',
                 'deskripsi' => 'Pantai bersih dengan banyak hiburan',
                 'htm' => '50.000/orang',
                 'jeniswisata_id' => 1
             ],
             [
-                'nama_wisata' => 'Hutan Beruang',
+                'namawisata' => 'Hutan Beruang',
                 'lokasi' => 'Malang',
                 'deskripsi' => 'Hutan itu hijau',
                 'htm' => 'Gratis',
                 'jeniswisata_id' => 2
             ],
             [
-                'nama_wisata' => 'Tugu FGH',
+                'namawisata' => 'Tugu FGH',
                 'lokasi' => 'Malang',
                 'deskripsi' => 'Tugu besar di tengah kota',
                 'htm' => 'Gratis',

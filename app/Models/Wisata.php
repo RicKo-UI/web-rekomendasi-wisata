@@ -9,7 +9,8 @@ class Wisata extends Model
 {
     use HasFactory;
 
-    public function jeniswisatas() { 
-        return $this->hasMany(Jeniswisata::class);
+    public function jeniswisata() 
+    { 
+        return $this->belongsTo(Jeniswisata::class);
     }
 }
