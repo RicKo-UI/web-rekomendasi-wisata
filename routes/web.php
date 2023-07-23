@@ -27,3 +27,6 @@ Auth::routes([
 Route::middleware('auth')->group(function(){
     Route::resource('wisatas', WisataController::class);
 });
+
+Route::get('home',[HomeController::class,'index'])->name('home');
+
