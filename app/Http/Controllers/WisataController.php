@@ -55,12 +55,27 @@ class WisataController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
+        $file = $request->file('poster');
+
+        if ($file != null) {
+            $originalFilename = $file->getClientOriginalName();
+            $encryptedFilename = $file->hashName();
+            // Store File
+            $file->store('public/files');
+        }
+
         $wisata = new Wisata;
         $wisata->namawisata = $request->namawisata;
         $wisata->lokasi = $request->lokasi;
         $wisata->deskripsi = $request->deskripsi;
         $wisata->htm = $request->htm;
         $wisata->jeniswisata_id = $request->jeniswisata;
+
+        if ($file != null) {
+            $wisata->original_filename = $originalFilename;
+            $wisata->encrypted_filename = $encryptedFilename;
+        }
+
         $wisata->save();
         return redirect()->route('wisatas.index');
     }

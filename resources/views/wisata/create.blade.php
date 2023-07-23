@@ -50,6 +50,10 @@ initial-scale=1.0">
                             <input class="form-control" type="text" name="htm" id="htm" value="" placeholder="Masukan htm">
                         </div>
                         <div class="col-md-12 mb-3">
+                            <label for="poster" class="form-label">poster</label>
+                            <input type="file" class="form-control" name="poster" id="poster">
+                        </div>
+                        <div class="col-md-12 mb-3">
                             <label for="jeniswisata" class="form-label">Jenis Wisata</label>
                             <select name="jeniswisata" id="jeniswisata" class="form-select">
                                 @foreach ($jeniswisatas as $jeniswisata)
