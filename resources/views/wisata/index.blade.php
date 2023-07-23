@@ -54,7 +54,7 @@
                         <td>{{ $wisata->jeniswisata->namajenis }}</td>
                         <td>{{-- ACTIONS SECTION --}}
                             <div class="d-flex">
-                                <a href="" class="btn btn-outline-dark btn-sm me-2"><i class="bi-person-lines-fill"></i></a> 
+                                <a href="{{ route('wisatas.show', ['wisata' => $wisata->id]) }}" class="btn btn-outline-dark btn-sm me-2"><i class="bi-person-lines-fill"></i></a> 
                                 <a href="{{ route('wisatas.edit', ['wisata' => $wisata->id]) }}" class="btn btn-outline-dark btn-sm me-2"><i class="bi-pencil-square"></i></a>
                                 <div>
                                     <form action="{{ route('wisatas.destroy', ['wisata' => $wisata->id]) }}" method="POST"> 
