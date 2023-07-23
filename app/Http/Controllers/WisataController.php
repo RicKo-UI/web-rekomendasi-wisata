@@ -85,15 +85,19 @@ class WisataController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $pageTitle = 'Employee Wisata';
+        // ELOQUENT
+        $wisata = Wisata::find($id);
+        return view('Wisata.show', compact('pageTitle', 'wisata'));
     }
+
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
     {
-        $pageTitle = 'Edit Employee';
+        $pageTitle = 'Edit Wisata';
         $jeniswisatas = Jeniswisata::all();
         $wisata = Wisata::find($id);
         return view('Wisata.edit', compact('pageTitle', 'jeniswisatas', 'wisata'));
