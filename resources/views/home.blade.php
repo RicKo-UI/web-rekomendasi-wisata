@@ -8,25 +8,7 @@
     @vite('resources/sass/app.scss')
 </head>
 <body>
-    <div class="container">
-        <div class="row mt-5">
-            <div class="card-columns">
-            @foreach ($wisatas as $wisata)
-            <div class="card" style="width: 20rem;">
-                <img src="..." class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">{{ $wisata->namawisata }}</h5>
-                  <p class="card-text">{{ $wisata->deskripsi }} </p>
-                  <p class="card-text">{{ $wisata->lokasi}} </p>
-                  <p class="card-text">{{ $wisata->htm}} </p>
-                  <p class="card-text">{{ $wisata->jeniswisata->namajenis }}</p>
-
-                  <a href="#" class="btn btn-primary">Lihat Selengkapnya</a>
-                </div>
-            </div>
-            @endforeach
-        </div>
-    </div>
+<a href="{{ route('details.index') }}" class="btn btn-primary">List Data</a>
 @vite('resources/js/app.js')
 </body>
 </html>

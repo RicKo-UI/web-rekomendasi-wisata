@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Str;
 use App\Models\Wisata;
 use App\Models\Jeniswisata;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Validator;
 
 class WisataController extends Controller
@@ -17,6 +20,7 @@ class WisataController extends Controller
     public function index()
     {
         $pageTitle = 'list Data';
+        confirmDelete();
         $wisatas = Wisata::all();
 
         return view('wisata.index', [
@@ -77,6 +81,7 @@ class WisataController extends Controller
         }
 
         $wisata->save();
+        Alert::success('Added Successfully', 'Data Added Successfully.');
         return redirect()->route('wisatas.index');
     }
 
@@ -129,16 +134,61 @@ class WisataController extends Controller
         $wisata->deskripsi = $request->deskripsi;
         $wisata->htm = $request->htm;
         $wisata->jeniswisata_id = $request->jeniswisata;
+
+        if ($request->hasFile('poster')) {
+            // Delete existing file if any
+            if ($wisata->encrypted_filename) {
+                Storage::delete('public/files/' . $wisata->encrypted_filename);
+            }
+    
+            $file = $request->file('poster');
+            $originalFilename = $file->getClientOriginalName();
+            $encryptedFilename = $file->hashName();
+    
+            // Store new file
+            $file->storeAs('public/files', $encryptedFilename);
+    
+            $wisata->original_filename = $originalFilename;
+            $wisata->encrypted_filename = $encryptedFilename;
+        }
         $wisata->save();
+        Alert::success('Changed Successfully', 'Data Changed Successfully.');
         return redirect()->route('wisatas.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
+    public function downloadFile($wisataId)
+    {
+        $wisata = wisata::find($wisataId);
+        $encryptedFilename = 'public/files/'.$wisata->encrypted_filename;
+        $downloadFilename =
+        Str::lower($wisata->namawisata.'_gambar.pdf');
+        if(Storage::exists($encryptedFilename)) {
+            return Storage::download($encryptedFilename, $downloadFilename);
+        } 
+    }
+    public function deleteFile($filename)
+    {
+        Storage::delete('public/files/' . $filename);
+    }
+
     public function destroy(string $id)
     {
-        Wisata::find($id)->delete();
+        $wisata = Wisata::find($id);
+        if ($wisata) {
+            // Delete associated file
+            if ($wisata->encrypted_filename) {
+                $this->deleteFile($wisata->encrypted_filename);
+            }
+    
+            $wisata->delete();
+            
+            Alert::success('Deleted Successfully', 'Data Deleted Successfully.');
+            return redirect()->route('wisatas.index')->with('success', 'Data karyawan berhasil dihapus.');
+        }
+        Alert::success('Deleted Successfully', 'Data Deleted Successfully.');
         return redirect()->route('wisatas.index');
     }
 }

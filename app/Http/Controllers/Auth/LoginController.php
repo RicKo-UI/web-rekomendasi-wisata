@@ -47,8 +47,7 @@ class LoginController extends Controller
             'password' => ['required'],
         ]);
         if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-            return redirect()->intended('home');
+            return redirect()->route('wisata.index');
         }
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',

@@ -50,6 +50,11 @@
                             @enderror 
                         </div>
                         <div class="col-md-12 mb-3">
+                            <label for="poster" class="form-label">Poster</label>
+                            <h5>{{ $wisata->original_filename }}</h5>
+                            <input type="file" class="form-control" name="poster" id="poster" value="{{ $errors->any() ? old('poster') : $wisata->original_filename }}">
+                        </div>
+                        <div class="col-md-12 mb-3">
                             <label for="jeniswisata" class="form-label">Jenis Wisata</label>
                             <select name="jeniswisata" id="jeniswisata" class="form-select">
                                 @php
