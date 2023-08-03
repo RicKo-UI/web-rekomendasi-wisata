@@ -10,14 +10,13 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-md navbar-dark bg-primary">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
         <div class="container"> <a href="" class="navbar-brand mb-0 h1"><i class="bi-hexagon-fill me-2"></i>Dasboard Admin</a> <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"> <span class="navbar-toggler-icon"></span> </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <hr class="d-lg-none text-white-50">
-                <ul class="navbar-nav flex-row flex-wrap">
-                    <li class="nav-item col-2 col-md-auto"><a href="" class="nav-link">Home</a></li>
-                    
-                    <li class="nav-item col-2 col-md-auto dropdown">
+                <ul class="navbar-nav flex-row flex-wrap py-2"> 
+                    <li class="nav-item col-2 col-md-auto"><a href="" class="nav-link active">List Data Wisata</a></li>
+                    <li class="nav-item col-2 col-md-auto dropdown ms-auto">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             {{ Auth::user()->name }}
                         </a>
@@ -32,9 +31,8 @@
                                 @csrf
                             </form>
                         </div>
-                    </li><li class="nav-item col-2 col-md-auto"><a href="" class="nav-link active">List Data Wisata</a></li>
+                    </li>
                 </ul>
-                <hr class="d-lg-none text-white-50"> <a href="" class="btn btn-outline-light my-2 ms-md-auto"><i class="bi-person-circle me-1"></i> My Profile</a>
             </div>
         </div>
     </nav>
@@ -70,13 +68,13 @@
                         <td>{{ $wisata->jeniswisata->namajenis }}</td>
                         <td>{{-- ACTIONS SECTION --}}
                             <div class="d-flex">
-                                <a href="{{ route('wisatas.show', ['wisata' => $wisata->id]) }}" class="btn btn-outline-dark btn-sm me-2"><i class="bi-person-lines-fill"></i></a> 
-                                <a href="{{ route('wisatas.edit', ['wisata' => $wisata->id]) }}" class="btn btn-outline-dark btn-sm me-2"><i class="bi-pencil-square"></i></a>
+                                <a href="{{ route('wisatas.show', ['wisata' => $wisata->id]) }}" class="btn btn-outline-info btn-sm me-2"><i class="bi-person-lines-fill"></i></a> 
+                                <a href="{{ route('wisatas.edit', ['wisata' => $wisata->id]) }}" class="btn btn-outline-warning btn-sm me-2"><i class="bi-pencil-square"></i></a>
                                 <div>
                                     <form action="{{ route('wisatas.destroy', ['wisata' => $wisata->id]) }}" method="POST"> 
                                         @csrf 
                                         @method('delete') 
-                                        <button type="submit" class="btn btn-outline-dark btn-sm me-2 btn-delete" data-name="{{ $wisata->namawisata.' '.$wisata->lokasi }}"> <i class="bi-trash"></i></button>
+                                        <button type="submit" class="btn btn-outline-danger btn-sm me-2 btn-delete" data-name="{{ $wisata->namawisata.' '.$wisata->lokasi }}"> <i class="bi-trash"></i></button>
                                     </form>
                                 </div>
                             </div>
@@ -89,9 +87,9 @@
     </div>
     @include('sweetalert::alert')
     @vite('resources/js/app.js')
-    @push('scripts')
         <script type="module">
             $(document).ready(function() {
+                $('#employeeTable').DataTable();
                 $(".datatable").on("click", ".btn-delete", function (e) {
                     e.preventDefault();
 
@@ -113,7 +111,6 @@
                 });
             });
         </script>
-    @endpush
 </body>
 
 </html>

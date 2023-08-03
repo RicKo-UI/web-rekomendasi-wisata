@@ -48,6 +48,7 @@ class DetailController extends Controller
         $pageTitle = 'Detail';
         // ELOQUENT
         $wisata = Wisata::find($id);
+
         return view('detail.show', compact('pageTitle', 'wisata'));
     }
 

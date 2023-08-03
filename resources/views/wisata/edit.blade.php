@@ -76,7 +76,7 @@
                     <hr>
                     <div class="row">
                         <div class="col-md-6 d-grid"> <a href="{{ route('wisatas.index') }}" class="btn btn-outline-dark btn-lg mt-3"><i class="bi-arrow-left-circle me-2"></i> Cancel</a> </div>
-                        <div class="col-md-6 d-grid"> <button type="submit" class="btn btn-dark btn-lg mt-3"><i class="bi-check-circle me-2"></i> Edit</button> </div>
+                        <div class="col-md-6 d-grid"> <button type="submit" class="btn btn-primary btn-lg mt-3"><i class="bi-check-circle me-2"></i> Edit</button> </div>
                     </div>
                 </div>
             </div>

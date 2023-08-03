@@ -22,7 +22,7 @@
                         <a class="nav-link active" aria-current="page" href="#">Home</a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link" href="#">List Wisata</a>
+                        <a class="nav-link" href="{{ route('details.index') }}">List Wisata</a>
                       </li>
                     </ul>
                   </div>
